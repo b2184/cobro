@@ -1,0 +1,102 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class ProgramaVentas {
+    private static final int OPCION_AGREGAR_PRODUCTO = 1;
+    private static final int OPCION_REALIZAR_VENTA = 2;
+    private static final int OPCION_MOSTRAR_INVENTARIO = 3;
+    private static final int OPCION_GENERAR_FACTURA = 4;
+    private static final int OPCION_GUARDAR_INVENTARIO = 5;
+    private static final int OPCION_SALIR = 6;
+    private static final String MENSAJE_AGRADECIMIENTO = "¡Gracias por usar el programa de ventas!";
+    private static final Map<String, Double> inventario = new HashMap<>();
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int opcion;
+        do {
+            mostrarMenu();
+            opcion = obtenerOpcion();
+            procesarOpcion(opcion);
+        } while (opcion != OPCION_SALIR);
+        System.out.println(MENSAJE_AGRADECIMIENTO);
+        scanner.close();
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("1. Agregar producto al inventario");
+        System.out.println("2. Realizar venta");
+        System.out.println("3. Mostrar inventario");
+        System.out.println("4. Generar factura de cobro");
+        System.out.println("5. Guardar inventario en archivo CSV");
+        System.out.println("6. Salir");
+    }
+
+    private static int obtenerOpcion() {
+        System.out.print("Selecciona una opción: ");
+        while (!scanner.hasNextInt()) {
+            System.out.print("Opción inválida. Introduce un número: ");
+            scanner.next();
+        }
+        return scanner.nextInt();
+    }
+
+    private static void procesarOpcion(int opcion) {
+        switch (opcion) {
+            case OPCION_AGREGAR_PRODUCTO:
+                agregarProducto();
+                break;
+            case OPCION_REALIZAR_VENTA:
+                realizarVenta();
+                break;
+            case OPCION_MOSTRAR_INVENTARIO:
+                mostrarInventario();
+                break;
+            case OPCION_GENERAR_FACTURA:
+                generarFactura();
+                break;
+            case OPCION_GUARDAR_INVENTARIO:
+                guardarInventario();
+                break;
+            case OPCION_SALIR:
+                break;
+            default:
+                System.out.println("Opción no válida. Por favor, selecciona una opción válida.");
+        }
+    }
+
+    private static void agregarProducto() {
+        System.out.print("Ingrese el nombre del producto: ");
+        String nombreProducto = scanner.next();
+        System.out.print("Ingrese la descripción del producto: ");
+        String descripcionProducto = scanner.next();
+        System.out.print("Ingrese el precio del producto: ");
+        double precioProducto = scanner.nextDouble();
+        inventario.put(nombreProducto + " - " + descripcionProducto, precioProducto);
+        System.out.println("Producto agregado al inventario.");
+    }
+
+    private static void realizarVenta() {
+        // Implementación del método realizarVenta
+    }
+
+    private static void mostrarInventario() {
+        if (inventario.isEmpty()) {
+            System.out.println("El inventario está vacío.");
+            return;
+        }
+        System.out.println("Inventario:");
+        inventario.forEach((producto, precio) -> System.out.println(producto + ": $" + precio));
+    }
+
+    private static void generarFactura() {
+        // Implementación del método generarFactura
+    }
+
+    private static void guardarInventario() {
+        // Implementación del método guardarInventario
+    }
+}
